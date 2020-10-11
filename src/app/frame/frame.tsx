@@ -2,32 +2,57 @@ import React, { Component, RefObject } from "react";
 
 import './frame.scss'
 
-export class Frame extends Component<{ src: string, name: string }, {}> {
+export class Frame extends Component<{ src: string, name: string }, {loaded: boolean, hasError: boolean, isFullscreen: boolean }> {
     private frame: RefObject<HTMLIFrameElement>;
 
     constructor(props: { src: string, name: string }) {
         super(props);
+
+        this.state = {
+            loaded: false,
+            hasError: false,
+            isFullscreen: document.fullscreenElement ? true : false
+        };
+
         this.frame = React.createRef();
     }
 
-    private maximize(): void {
-        if (!document.fullscreenElement) {
-            this.frame.current?.requestFullscreen().catch(err => {
-              alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-            });
-          } else {
+    private async maximize(): Promise<void> {
+        if (!this.state.isFullscreen) {
+            await this.frame.current?.requestFullscreen();
+        } else {
             document.exitFullscreen();
-          }
+        }
     }
 
-    render() {
+    private onLoad(): void {
+        this.setState({
+            loaded: true
+        }, () => Frame.stateUpdated(this.state));
+    }
+
+    private onError(): void {
+        this.setState({
+            hasError: true
+        }, () => Frame.stateUpdated(this.state));
+    }
+
+    private static stateUpdated(state: any): void {
+        console.log('state updated', state)
+    }
+
+    render(): JSX.Element {
         return (
             <div>
                 <div className="frame-header">
                     <span>{this.props.name}</span>
                     <button onClick={() => this.maximize()}>_</button>
                 </div>
-                <iframe ref={this.frame} src={this.props.src} allowFullScreen></iframe>
+                <iframe ref={this.frame} src={this.props.src} 
+                    allowFullScreen
+                    onLoad={() => this.onLoad()}
+                    onError={() => this.onError()}>
+                </iframe>
             </div>
         );
     }
