@@ -37,7 +37,7 @@ export class App extends Component {
                     <div className="main-content">
                         <Content>
                             {this.contentItems.map((ci) => <div key={ci.name} className="content-item">
-                                <Frame src={ci.url} />
+                                <Frame src={ci.url} name={ci.name}/>
                             </div>)}
                         </Content>
                     </div>
