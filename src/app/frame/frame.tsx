@@ -1,8 +1,9 @@
-import React, { Component, RefObject } from "react";
+import React, { RefObject } from "react";
 
 import './frame.scss'
+import { BaseComponent } from "../../shared/base-component";
 
-export class Frame extends Component<{ src: string, name: string }, {loaded: boolean, hasError: boolean, isFullscreen: boolean }> {
+export class Frame extends BaseComponent<{ src: string, name: string }, {loaded: boolean, hasError: boolean, isFullscreen: boolean }> {
     private frame: RefObject<HTMLIFrameElement>;
 
     constructor(props: { src: string, name: string }) {
@@ -15,6 +16,12 @@ export class Frame extends Component<{ src: string, name: string }, {loaded: boo
         };
 
         this.frame = React.createRef();
+    }
+
+    public componentDidMount(): void {
+        console.log('----------frame component mounted----------');
+        
+        this.getAppContext().user.subscribe(u => console.log('------user-----', u));
     }
 
     private async maximize(): Promise<void> {
