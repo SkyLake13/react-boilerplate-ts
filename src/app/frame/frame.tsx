@@ -20,8 +20,6 @@ export class Frame extends BaseComponent<{ src: string, name: string }, {loaded:
 
     public componentDidMount(): void {
         console.log('----------frame component mounted----------');
-        
-        this.getAppContext().user.subscribe(u => console.log('------user-----', u));
     }
 
     private async maximize(): Promise<void> {
@@ -64,3 +62,4 @@ export class Frame extends BaseComponent<{ src: string, name: string }, {loaded:
         );
     }
 }
+
