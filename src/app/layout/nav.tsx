@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class Nav extends Component {
-    render() {
-        return (
-            <nav className="nav">
-                {this.props.children}
-            </nav>
-        );
-    }
+export function Nav(props: any) {
+    return (
+        <nav className="nav">
+            {props.children}
+        </nav>
+    );
 }

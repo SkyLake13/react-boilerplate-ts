@@ -1,11 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
+import { UserContext } from "../user.context";
 
-export class Header extends Component {
-    render() {
-        return (
-            <div>
-                {this.props.children}
-            </div>
-        )
-    }
+const header = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    backgroundColor: 'blanchedalmond',
+}
+
+const headerName = {
+    fontSize: '44px'
+}
+
+export function Header(props: any) {
+    return (
+            <UserContext.Consumer>
+                { (value: any) => (
+                    <div style={header}>
+                        <div style={headerName}>
+                            {props.children}
+                        </div>
+                        <div>
+                            {value.username}
+                        </div>
+                    </div>
+                ) }
+            </UserContext.Consumer>
+    );
 }

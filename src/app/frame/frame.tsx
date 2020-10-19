@@ -1,65 +1,43 @@
-import React, { RefObject } from "react";
+import React, { useRef, useState } from "react";
 
 import './frame.scss'
-import { BaseComponent } from "../../shared/base-component";
 
-export class Frame extends BaseComponent<{ src: string, name: string }, {loaded: boolean, hasError: boolean, isFullscreen: boolean }> {
-    private frame: RefObject<HTMLIFrameElement>;
 
-    constructor(props: { src: string, name: string }) {
-        super(props);
+export function Frame(props: any): JSX.Element {
+    const frame = useRef<HTMLIFrameElement>(null);
+    const [, setLoaded] = useState(false);
+    const [, sethasError] = useState(false);
+    const [isFullscreen] = useState(false);
 
-        this.state = {
-            loaded: false,
-            hasError: false,
-            isFullscreen: document.fullscreenElement ? true : false
-        };
-
-        this.frame = React.createRef();
-    }
-
-    public componentDidMount(): void {
-        console.log('----------frame component mounted----------');
-    }
-
-    private async maximize(): Promise<void> {
-        if (!this.state.isFullscreen) {
-            await this.frame.current?.requestFullscreen();
+    const maximize = async () => {
+        if (!isFullscreen) {
+            await frame.current?.requestFullscreen();
         } else {
             document.exitFullscreen();
         }
+    };
+
+    const onLoad = () => {
+        setLoaded(true);
     }
 
-    private onLoad(): void {
-        this.setState({
-            loaded: true
-        }, () => Frame.stateUpdated(this.state));
+    const onError = () => {
+        sethasError(true);
     }
 
-    private onError(): void {
-        this.setState({
-            hasError: true
-        }, () => Frame.stateUpdated(this.state));
-    }
-
-    private static stateUpdated(state: any): void {
-        console.log('state updated', state)
-    }
-
-    render(): JSX.Element {
-        return (
-            <div>
-                <div className="frame-header">
-                    <span>{this.props.name}</span>
-                    <button onClick={() => this.maximize()}>_</button>
-                </div>
-                <iframe ref={this.frame} src={this.props.src} 
-                    allowFullScreen
-                    onLoad={() => this.onLoad()}
-                    onError={() => this.onError()}>
-                </iframe>
+    return (
+        <div>
+            <div className="frame-header">
+                <span>{props.name}</span>
+                <button onClick={() => maximize()}>_</button>
             </div>
-        );
-    }
+            <iframe ref={frame} src={props.src} 
+                allowFullScreen
+                onLoad={() => onLoad()}
+                onError={() => onError()}>
+            </iframe>
+        </div>
+    );
 }
+
 
