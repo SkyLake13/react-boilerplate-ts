@@ -31,7 +31,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      favicon: "./src/favicon.ico"
+  })
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
