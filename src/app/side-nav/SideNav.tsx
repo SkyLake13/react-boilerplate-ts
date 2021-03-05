@@ -1,24 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 
-export class SideNav extends Component {
-    render(): JSX.Element {
-        return (
-            <nav>
-                <ul>
-                    <li>
-                        Link 1
-                    </li>
-                    <li>
-                        Link 1
-                    </li>
-                    <li>
-                        Link 1
-                    </li>
-                    <li>
-                        Link 1
-                    </li>
-                </ul>
-            </nav>
-        );
-    }
+export function SideNav(props: { navItem: NavItem[] }): JSX.Element {
+    return (
+        <nav>
+            <ul>
+                { props.navItem.map((n: NavItem) => <li>{n.text}</li>) }
+            </ul>
+        </nav>
+    );
+}
+
+export interface NavItem {
+    type: string;
+    text: string;
+    url: string;
 }

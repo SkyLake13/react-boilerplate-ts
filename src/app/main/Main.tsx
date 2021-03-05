@@ -1,29 +1,47 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import './Main.scss';
-import { SideNav } from "../side-nav/SideNav";
+import { SideNav, NavItem } from "../side-nav/SideNav";
 
-export class Main extends Component<any, any> {
-    constructor(props: any) {
-        super(props)
+export function Main(props: { showNav: boolean }): JSX.Element {
+
+    const [nav] = useState<NavItem[]>([
+        {
+            text: 'Link 1', type: '', url: ''
+        },
+        {
+            text: 'Link 2', type: '', url: ''
+        },
+        {
+            text: 'Link 3', type: '', url: ''
+        },
+        {
+            text: 'Link 4', type: '', url: ''
+        }
+    ])
+
+    const navigation = () => {
+        if (props.showNav) {
+            return <div className="side-navigation">
+                    <SideNav navItem={nav}/>
+                </div>
+        }
+
+        return undefined;
     }
 
-    public render(): JSX.Element {
-        return (
-            <div className="sections">
-                <div className="side-navigation">
-                    <SideNav />
-                </div>
-                <div className="panel-allocation">
-                    allocation
-                </div>
-                <div className="panel-balance">
-                    balance
-                </div>
-                <div className="panel-positions">
-                    positions
-                </div>
+    return (
+        <div className="sections margin">
+            { navigation() }
+            <div className="panel-allocation">
+                allocation
             </div>
-        );
-    }
+            <div className="panel-balance">
+                balance
+            </div>
+            <div className="panel-positions">
+                positions
+            </div>
+        </div>
+    );
 }

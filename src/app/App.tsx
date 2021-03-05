@@ -1,20 +1,16 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import './App.scss';
 import { Header } from "./header/Header";
 import { Main } from "./main/Main";
 
-export class App extends Component<{}, {}> {
-    render(): JSX.Element {
-        return (
+export function App(): JSX.Element {
+    const [nav, setNav] = useState<boolean>(true);
+
+    return (
             <div>
-                <div>
-                    <Header />
-                </div>
-                <div className="main">
-                    <Main />
-                </div>
+                <Header onNavClick={() => setNav(!nav)}/>
+                <Main showNav={nav} />
             </div>
-        );
-    }
+    );
 }
