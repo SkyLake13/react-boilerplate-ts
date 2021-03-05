@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import './Main.scss';
+import './App.scss';
 import { Header } from "./header/Header";
-import { Layout } from "./layout/Layout";
+import { Main } from "./main/Main";
 
-export class Main extends Component<{}, {}> {
+export class App extends Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div>
@@ -12,7 +12,7 @@ export class Main extends Component<{}, {}> {
                     <Header />
                 </div>
                 <div className="main">
-                    <Layout />
+                    <Main />
                 </div>
             </div>
         );

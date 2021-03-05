@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
-import { Main } from './app/Main';
+import { App } from './app';
 import React from "react";
-import './App.scss'
+import './index.scss'
 
-render(<Main />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));

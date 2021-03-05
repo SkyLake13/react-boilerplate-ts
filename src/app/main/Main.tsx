@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 
-import './Layout.scss';
+import './Main.scss';
 import { SideNav } from "../side-nav/SideNav";
 
-export class Layout extends Component {
-    render(): JSX.Element {
+export class Main extends Component<any, any> {
+    constructor(props: any) {
+        super(props)
+    }
+
+    public render(): JSX.Element {
         return (
             <div className="sections">
                 <div className="side-navigation">

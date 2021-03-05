@@ -13,7 +13,7 @@ export class Header extends Component {
                         </div>
                     </Navbar.Brand>
                     <div className="user-round">
-                        <i className="bi-alarm"></i>
+                        img
                     </div>
                 </Navbar>
         );
