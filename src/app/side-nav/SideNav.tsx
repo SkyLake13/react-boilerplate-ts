@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 export function SideNav(props: { navItem: NavItem[] }): JSX.Element {
 
     const item = (navItem: NavItem) => {
-        return <ListGroup.Item action href={navItem.url}>
+        return <ListGroup.Item action href={navItem.url} key={navItem.text}>
                 {navItem.text}
             </ListGroup.Item>
     };
