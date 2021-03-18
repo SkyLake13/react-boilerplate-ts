@@ -1,5 +1,3 @@
-import React from "react";
-
 import './Main.scss';
 
 export function Main(props: { sections: any[] }): JSX.Element {

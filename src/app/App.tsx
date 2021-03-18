@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +8,7 @@ import { Header } from "./header/Header";
 import { SideNav, NavItem } from "./side-nav/SideNav";
 import { AppErrorBoundary } from "./error/AppErrorBoundary";
 import { AxiosResponse } from "axios";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import { AppRoutes } from "./Routes";
 import createHttpClient from "./http/http-factory";
 

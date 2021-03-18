@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './DynamicPage.scss';
 import { useRouteMatch } from 'react-router-dom';
