@@ -1,7 +1,7 @@
 import { act } from "react-dom/test-utils";
 import { render, RenderResult, cleanup } from '@testing-library/react';
 
-import Main from './main';
+import Main from './Main';
 
 describe('Main component ', () => {
   let fixture: RenderResult;
