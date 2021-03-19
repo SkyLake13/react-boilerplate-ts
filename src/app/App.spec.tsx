@@ -1,9 +1,9 @@
 import { act } from "react-dom/test-utils";
 import { render, RenderResult, cleanup } from '@testing-library/react';
 
-import Main from './Main';
+import { App } from './App';
 
-describe('Main component ', () => {
+describe('App component ', () => {
   let fixture: RenderResult;
 
   afterEach(() => {
@@ -12,7 +12,7 @@ describe('Main component ', () => {
 
   it("Main renders correctly", () => {
     act(() => {
-      fixture = render(<Main />)
+      fixture = render(<App />)
     });
 
     const xyz = fixture.container.querySelector('.main');
