@@ -20,6 +20,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: dist,
+    assetModuleFilename: 'assets/[hash][ext][query]'
   },
   module: {
     rules: [
@@ -59,13 +60,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'images/',
-          esModule: false,
-        },
+        test: /\.(png|jpg\jpeg|gif|svg)$/,
+        type: 'asset/resource'
       }
     ]
   },
@@ -73,7 +69,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.ejs',
-      favicon: './images/favicon.ico',
+      favicon: './assets/favicon.ico',
       title: package.name,
       base: '/',
       meta: {
