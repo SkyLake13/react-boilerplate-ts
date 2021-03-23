@@ -1,10 +1,25 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+const basePath = __dirname;
+const src = path.join(basePath, "src");
+const dist = path.join(basePath, "dist");
+
+module.exports.dist = dist;
 
 module.exports = {
   target: "web",
-  entry: './src/index.tsx',
+  context: src,
+  entry: ['./index.tsx'],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
+  },
+  output: {
+    filename: 'index.js',
+    path: dist,
+  },
   module: {
     rules: [
       {
@@ -14,13 +29,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [ 
+          MiniCssExtractPlugin.loader,
+         "css-loader"
+        ]
       },
       {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
           'css-loader',
           // Compiles Sass to CSS
@@ -38,27 +56,32 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]?[hash]",
+          outputPath: 'images/',
+          esModule: false,
+        },
       }
-    ],
+    ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      favicon: "./src/images/favicon.ico",
+      template: './index.ejs',
+      favicon: "./images/favicon.ico",
       title: "React App",
+      base: "/",
       meta: {
-        "custom-meta-data": {
-          "key": "key",
-          "value": "value"
-        }
+          "key": "value",
       }
-  })
-  ],
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
-  },
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-  }
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
+  ]
 };
