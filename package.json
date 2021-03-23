@@ -1,7 +1,7 @@
 {
   "name": "react-boilerplate-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "React boilerplate with typescript",
   "main": "index.js",
   "scripts": {
     "build": "npx webpack --config webpack.prod.js",

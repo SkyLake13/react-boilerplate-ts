@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const package = require('./package.json');
 
 const basePath = __dirname;
 const src = path.join(basePath, "src");
@@ -31,7 +32,7 @@ module.exports = {
         test: /\.css$/,
         use: [ 
           MiniCssExtractPlugin.loader,
-         "css-loader"
+         'css-loader'
         ]
       },
       {
@@ -59,9 +60,9 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "[name].[ext]?[hash]",
+          name: '[name].[ext]',
           outputPath: 'images/',
           esModule: false,
         },
@@ -72,16 +73,17 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './index.ejs',
-      favicon: "./images/favicon.ico",
-      title: "React App",
-      base: "/",
+      favicon: './images/favicon.ico',
+      title: package.name,
+      base: '/',
       meta: {
-          "key": "value",
+          version: package.version,
+          description: package.description
       }
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-    }),
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    })
   ]
 };
