@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
-    menuButton: {
-      
-    },
     hide: {
       display: 'none',
     },
@@ -108,7 +105,7 @@ export default function() {
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, {
+            className={clsx({
               [classes.hide]: open,
             })}
           >
