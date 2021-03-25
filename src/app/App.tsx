@@ -10,13 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Avatar from '@material-ui/core/Avatar';
 
 const drawerWidth = 240;
 
@@ -26,15 +26,20 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 2,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
+    avatarSeparator: {
+        flexGrow: 1
+    },
+    avatar: {
+        cursor: 'pointer'
+    },
     appBarShift: {
       marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -86,12 +91,12 @@ export default function() {
   // const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleDrawer = () => {
+    setOpen(!open);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleAvatarClick = (event: any) => {
+    console.log('avatar clicked', event);
   };
 
   return (
@@ -104,16 +109,15 @@ export default function() {
       >
         <Toolbar>
           <IconButton color="inherit" aria-label="open drawer" edge="start"
-            onClick={handleDrawerOpen}
-            className={clsx({
-              [classes.hide]: open,
-            })}
+            onClick={handleDrawer}
           >
-            <MenuIcon />
+            { open ? <ArrowBackIcon/> : <MenuIcon /> }
           </IconButton>
           <Typography variant="h6" noWrap>
             Rainbow
           </Typography>
+          <div className={classes.avatarSeparator}></div>
+          <Avatar className={classes.avatar} onClick={handleAvatarClick}>AB</Avatar>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent"
@@ -129,9 +133,7 @@ export default function() {
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          
         </div>
         <Divider />
         <List>
@@ -154,6 +156,9 @@ export default function() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <div>
+            content here
+        </div>
       </main>
     </div>
   );
