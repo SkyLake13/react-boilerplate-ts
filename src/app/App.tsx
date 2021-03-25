@@ -132,9 +132,7 @@ export default function() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          
-        </div>
+        <div className={classes.toolbar}/>
         <Divider />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
