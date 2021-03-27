@@ -1,48 +1,22 @@
-import { TextField, Container, Button, Typography, Link } from '@material-ui/core';
-import { CSSProperties } from 'react';
-import { useForm } from 'react-hook-form';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import ForgotPassword from './ForgotPassword';
+import Login from './Login';
+import Signup from './Signup';
 
-import './App.scss';
-import image from "../assets/react.png";
-
-interface FormData {
-    username: string;
-    password: string;
-}
-
-const form: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyItems: 'center'
-}
-
-export default function () {
-    const { register, handleSubmit, errors } = useForm<FormData>();
-
-    const onSubmit = (dta: FormData) => {
-        console.log(dta);
-    };
-
+export default function App(): JSX.Element {
     return (
-        <Container maxWidth="xs">
-            <img src={image}/>
-            <form style={form} onSubmit={handleSubmit(onSubmit)}>
-                <TextField label="Username" variant="outlined" style={{margin: '10px'}}
-                    name="username" {...(errors.username && {error: true})} inputRef={register({ required: true })} />
-                <TextField type="password" label="Password" variant="outlined" style={{margin: '10px'}}
-                    name="password" {...(errors.password && {error: true})} inputRef={register({ required: true })} />
-                <Button type="submit" variant="contained" color="primary" style={{margin: '10px'}}>
-                    Login
-                </Button>
-            </form>
-            <Typography>
-                <Link href="#" style={{margin: '10px'}}>
-                    Sign up
-                </Link>
-                <Link href="#" style={{margin: '10px'}}>
-                    Forgot password?
-                </Link>
-            </Typography>
-        </Container>
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <Login />
+                </Route>
+                <Route path="/signup">
+                    <Signup />
+                </Route>
+                <Route path="/forgot-password">
+                    <ForgotPassword />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
