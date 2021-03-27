@@ -1,8 +1,9 @@
-import { TextField, Container, Button } from '@material-ui/core';
+import { TextField, Container, Button, Typography, Link } from '@material-ui/core';
 import { CSSProperties } from 'react';
 import { useForm } from 'react-hook-form';
 
 import './App.scss';
+import image from "../assets/react.png";
 
 interface FormData {
     username: string;
@@ -24,15 +25,24 @@ export default function () {
 
     return (
         <Container maxWidth="xs">
+            <img src={image}/>
             <form style={form} onSubmit={handleSubmit(onSubmit)}>
                 <TextField label="Username" variant="outlined" style={{margin: '10px'}}
                     name="username" {...(errors.username && {error: true})} inputRef={register({ required: true })} />
                 <TextField type="password" label="Password" variant="outlined" style={{margin: '10px'}}
                     name="password" {...(errors.password && {error: true})} inputRef={register({ required: true })} />
                 <Button type="submit" variant="contained" color="primary" style={{margin: '10px'}}>
-                    Primary
+                    Login
                 </Button>
             </form>
+            <Typography>
+                <Link href="#" style={{margin: '10px'}}>
+                    Sign up
+                </Link>
+                <Link href="#" style={{margin: '10px'}}>
+                    Forgot password?
+                </Link>
+            </Typography>
         </Container>
     );
 }
