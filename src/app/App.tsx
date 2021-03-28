@@ -4,21 +4,15 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Avatar from '@material-ui/core/Avatar';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+
+import Nav from './Nav';
+import User from './User';
 
 const drawerWidth = 240;
 
@@ -34,11 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 duration: theme.transitions.duration.leavingScreen,
             }),
         },
-        avatarSeparator: {
+        userSeparator: {
             flexGrow: 1
-        },
-        avatar: {
-            cursor: 'pointer'
         },
         appBarShift: {
             marginLeft: drawerWidth,
@@ -46,9 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
             }),
-        },
-        hide: {
-            display: 'none',
         },
         drawer: {
             width: drawerWidth,
@@ -92,19 +80,9 @@ export default function () {
     const classes = useStyles();
     // const theme = useTheme();
     const [open, setOpen] = useState(false);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
+    
     const handleDrawer = () => {
         setOpen(!open);
-    };
-
-    const handleAvatarClick = (event: any) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = (event: any) => {
-        setAnchorEl(null);
-        console.log(event);
     };
 
     return (
@@ -113,28 +91,17 @@ export default function () {
             <AppBar position="fixed"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
-                })}
-            >
+                })}>
                 <Toolbar>
                     <IconButton color="inherit" aria-label="open drawer" edge="start"
-                        onClick={handleDrawer}
-                    >
+                        onClick={handleDrawer}>
                         {open ? <ArrowBackIcon /> : <MenuIcon />}
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         Rainbow
                     </Typography>
-                    <div className={classes.avatarSeparator}></div>
-                    <Avatar aria-controls="simple-menu" aria-haspopup="true"
-                        className={classes.avatar} onClick={handleAvatarClick}>AB</Avatar>
-                    <Menu id="simple-menu" anchorEl={anchorEl} keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                        >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </Menu>
+                    <div className={classes.userSeparator}></div>
+                    <User/>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent"
@@ -147,33 +114,16 @@ export default function () {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
                     }),
-                }}
-            >
+                }}>
                 <div className={classes.toolbar} />
+                <Nav />
                 <Divider />
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div>
                     content here
-        </div>
+                </div>
             </main>
         </div>
     );
