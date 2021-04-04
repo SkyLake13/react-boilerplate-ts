@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const package = require('./package.json');
 
 const basePath = __dirname;
@@ -18,7 +19,7 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
   },
   output: {
-    filename: 'index.js',
+    filename: '[name].[contenthash].bundle.js',
     path: dist,
     assetModuleFilename: 'assets/[hash][ext][query]'
   },
@@ -30,14 +31,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: [ 
-          MiniCssExtractPlugin.loader,
-         'css-loader'
-        ]
-      },
-      {
-        test: /\.s[ac]ss$/i,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           // Creates `style` nodes from JS strings
           MiniCssExtractPlugin.loader,
@@ -80,6 +74,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
-    })
+    }),
+    new WebpackAssetsManifest()
   ]
 };
