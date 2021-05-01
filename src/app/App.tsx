@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useCallback } from 'react';
 import clsx from 'clsx';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -10,11 +10,12 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Nav from './Nav';
 import User from './User';
 import { Main, Dynamic } from './pages';
+import { useToken } from './useToken';
 
 const drawerWidth = 240;
 
@@ -78,17 +79,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function () {
     const classes = useStyles();
-    // const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const { get, getUser } = useToken();
 
-    const handleDrawer = () => {
+    try {
+        console.log('token ', get(), getUser());
+    } catch(ex) {
+        console.error(ex);
+    }
+    
+    const [open, setOpen] = useState(false);
+    const handleDrawer = useCallback(() => {
         setOpen(!open);
-    };
+    }, [open]);
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Router>
                 <AppBar position="fixed"
                     className={clsx(classes.appBar, {
                         [classes.appBarShift]: open,
@@ -135,7 +141,6 @@ export default function () {
                         </Route>
                     </Switch>
                 </main>
-            </Router>
         </div>
     );
 }
